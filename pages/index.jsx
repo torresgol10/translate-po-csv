@@ -2,8 +2,8 @@ import { useState } from 'react'
 import Head from 'next/head'
 import Form from './components/Form';
 import MyDropzone from './components/MyDropzone'
-import getTranslate from './service/getTranslate';
-import { downloadFile } from './utils.js';
+import getTranslate from '@/service/getTranslate';
+import { downloadFile } from '@/lib/utils.js';
 
 
 export default function Home() {

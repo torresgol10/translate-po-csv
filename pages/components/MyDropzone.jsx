@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { tranformStringFromCSV, tranformStringFromPO } from '../utils.js';
+import { tranformStringFromCSV, tranformStringFromPO } from '../../lib/utils.js';
 
 export default function MyDropzone({ setMsgid }) {
     const onDrop = useCallback((acceptedFiles) => {
