@@ -11,7 +11,7 @@ export default function MyDropzone({ setMsgid }) {
 
             reader.onload = () => {
                 const textSting = reader.result
-                const list = file.type === "application/vnd.ms-powerpoint" ? tranformStringFromPO(textSting) : tranformStringFromCSV(textSting);
+                const list = file.type.endsWith(".po") || file.type.endsWith(".pot") ? tranformStringFromPO(textSting) : tranformStringFromCSV(textSting);
                 setMsgid(list);
             }
 
