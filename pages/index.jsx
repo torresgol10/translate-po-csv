@@ -64,11 +64,14 @@ export default function Home() {
       </Head>
 
       <div className="App">
+        <h1>Translate PO and Csv with Deepl</h1>
         {msgid.length === 0 && <MyDropzone setMsgid={setMsgid} />}
         {msgid.length > 0 &&
           <>
-            <Form handlerSubmit={handlerSubmit} />
-            <div>
+            <div className='container-form'>
+              <Form handlerSubmit={handlerSubmit} />
+            </div>
+            <div className='list-buttons'>
               <button onClick={() => downloadFile(msgid, "po")}>Generate PO</button>
               <button onClick={() => downloadFile(msgid, "csv")}>Generate CSV</button>
             </div>
@@ -77,7 +80,7 @@ export default function Home() {
                 <tr>
                   <th>Idioma</th>
                   <th>Traducción</th>
-                  <input type="checkbox" id="checkbox" value="" onChange={handlerCheckedAll} />
+                  <th><input type="checkbox" id="checkbox" value="" onChange={handlerCheckedAll} /></th>
                 </tr>
               </thead>
               <tbody>
