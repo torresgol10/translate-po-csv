@@ -8,6 +8,7 @@ import { downloadFile } from '@/lib/utils.js';
 
 export default function Home() {
   const [listTranslate, setListTranslate] = useState([]);
+  const [loadingTranslate, setLoadingTranslate] = useState(false)
 
   const handlerChangeCheckbox = (index) => {
     const newMsgid = listTranslate
@@ -17,6 +18,8 @@ export default function Home() {
 
   const handlerSubmit = async (e) => {
     e.preventDefault();
+    setLoadingTranslate(true)
+    
     const lang = e.target[0].value
 
     const newT = []
@@ -33,6 +36,7 @@ export default function Home() {
         newT.push(text)
       }
     }
+    setLoadingTranslate(false)
     setListTranslate(newT);
   }
 
@@ -69,7 +73,7 @@ export default function Home() {
         {listTranslate.length > 0 &&
           <>
             <div className='container-form'>
-              <Form handlerSubmit={handlerSubmit} />
+              <Form handlerSubmit={handlerSubmit} loadingTranslate={loadingTranslate}/>
             </div>
             <div className='list-buttons'>
               <button onClick={() => downloadFile(listTranslate, "po")}>Generate PO</button>
