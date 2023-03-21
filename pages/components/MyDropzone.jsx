@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { tranformStringFromCSV, tranformStringFromPO } from '../../lib/utils.js';
 
-export default function MyDropzone({ setMsgid }) {
+export default function MyDropzone({ setListTranslate }) {
     const onDrop = useCallback((acceptedFiles) => {
         acceptedFiles.forEach((file) => {
             const reader = new FileReader()
@@ -12,13 +12,13 @@ export default function MyDropzone({ setMsgid }) {
             reader.onload = () => {
                 const textSting = reader.result.replace(/\r\n/g, '\n');
                 const list = file.name.endsWith(".po") || file.name.endsWith(".pot") ? tranformStringFromPO(textSting) : tranformStringFromCSV(textSting);
-                setMsgid(list);
+                setListTranslate(list);
             }
 
             reader.readAsText(file)
         })
 
-    }, [setMsgid])
+    }, [setListTranslate])
 
     const { getRootProps, getInputProps } = useDropzone({
         onDrop, maxFiles: 1,

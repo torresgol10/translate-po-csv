@@ -93,6 +93,10 @@ table input {
     display: flex;
 }
 
+.container-form form input {
+    margin-left: 1rem;
+}
+
 .container-form form button {
     margin-top: 0;
     margin-left: 1rem;

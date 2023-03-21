@@ -7,12 +7,12 @@ import { downloadFile } from '@/lib/utils.js';
 
 
 export default function Home() {
-  const [msgid, setMsgid] = useState([]);
-  console.log(msgid)
+  const [listTranslate, setListTranslate] = useState([]);
+
   const handlerChangeCheckbox = (index) => {
-    const newMsgid = msgid
+    const newMsgid = listTranslate
     newMsgid[index].isChecked = !newMsgid[index].isChecked
-    setMsgid([...newMsgid])
+    setListTranslate([...newMsgid])
   }
 
   const handlerSubmit = async (e) => {
@@ -20,7 +20,7 @@ export default function Home() {
     const lang = e.target[0].value
 
     const newT = []
-    for await (let text of msgid) {
+    for await (let text of listTranslate) {
       if (text.isChecked) {
         const newText = await getTranslate({ target_language: lang, text: text.msgid })
         const obj = {
@@ -33,24 +33,24 @@ export default function Home() {
         newT.push(text)
       }
     }
-    setMsgid(newT);
+    setListTranslate(newT);
   }
 
   const handlerCheckedAll = (e) => {
-    const newMsg = msgid.map((text) => {
+    const newMsg = listTranslate.map((text) => {
       return {
         ...text,
         isChecked: e.target.checked,
       }
     })
-    setMsgid([...newMsg])
+    setListTranslate([...newMsg])
   }
 
   const handlerChangeText = (e, index) => {
-    const newMsgid = msgid
+    const newMsgid = listTranslate
     newMsgid[index].msgstr = e.target.value
     newMsgid[index].isChecked = e.target.value === ''
-    setMsgid([...newMsgid])
+    setListTranslate([...newMsgid])
   }
 
   return (
@@ -65,15 +65,15 @@ export default function Home() {
 
       <div className="App">
         <h1>Translate PO and Csv with Deepl</h1>
-        {msgid.length === 0 && <MyDropzone setMsgid={setMsgid} />}
-        {msgid.length > 0 &&
+        {listTranslate.length === 0 && <MyDropzone setListTranslate={setListTranslate} />}
+        {listTranslate.length > 0 &&
           <>
             <div className='container-form'>
               <Form handlerSubmit={handlerSubmit} />
             </div>
             <div className='list-buttons'>
-              <button onClick={() => downloadFile(msgid, "po")}>Generate PO</button>
-              <button onClick={() => downloadFile(msgid, "csv")}>Generate CSV</button>
+              <button onClick={() => downloadFile(listTranslate, "po")}>Generate PO</button>
+              <button onClick={() => downloadFile(listTranslate, "csv")}>Generate CSV</button>
             </div>
             <table>
               <thead>
@@ -85,7 +85,7 @@ export default function Home() {
               </thead>
               <tbody>
 
-                {msgid.map((traduccion, index) => {
+                {listTranslate.map((traduccion, index) => {
                   return (
                     <tr key={index}>
                       <td>{traduccion.msgid}</td>
